@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@layer base{
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  body {
+    background-color: black;
+  }
+}
+
+@layer utilities {
+  .grid-background {
+    background-color: black;
+    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 60px ),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 60px);
+  }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@theme {
+  --animate-blink: blink 1s step-end infinite;
+}
