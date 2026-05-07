@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence,motion } from 'motion/react';
-import backImage from '../assets/background-heroSection.webp'
+import { AnimatePresence, motion } from 'motion/react';
+
+import backImage from '../assets/background-heroSection.webp';
 import { FaGithub, FaLinkedin, FaArrowDown } from 'react-icons/fa';
 
 export function HeroSection() {
@@ -30,7 +31,7 @@ export function HeroSection() {
     };
 
     return (
-        <section id="hero" style={{backgroundImage: `url(${backImage})`}} 
+        <section id="home" style={{backgroundImage: `url(${backImage})`}} 
         className='h-dvh bg-cover bg-center overflow-hidden rounded-lg flex items-center md:items-start md:pt-80 justify-center relative [mask-image:linear-gradient(to_bottom, _black_60%, _transparent_100%)]'>
             <div className='relative z-10 mx-auto max-w-4xl px-6 md:px-0 mb-20 md:mb-0 text-center'>
                 
@@ -45,7 +46,7 @@ export function HeroSection() {
                 <h1 className='mb-4 text-5xl font-bold tracking-tight sm:text-7xl text-white'>{displayText} {!isComplete && <span className='animate-blink'>|</span>}</h1>
 
                 <motion.p variants={fadeUp} initial="hidden" animate="visible" transition={{duration: 0.3, delay: 0.15}}
-                className='mx-auto mb-10 max-w-2xl text-lg sm:text-xl text-zinc-400'>
+                className='mx-auto mb-10 max-w-2xl text-lg sm:text-xl text-zinc-100'>
                     Aspiring Software Engineer looking for work</motion.p>
 
                 <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{duration: 0.3, delay: 0.3}}
