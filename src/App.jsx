@@ -1,6 +1,9 @@
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { AboutSection } from "./components/AboutSection";
+import { ProjectsSection } from "./components/ProjectsSection";
+import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
 
 const App = () => {
   return (
@@ -11,7 +14,10 @@ const App = () => {
        <main>
         <HeroSection/>
         <AboutSection/>
+        <ProjectsSection/>
+        <Contact/>
       </main>
+      <Footer/>
     </div>
   );
 }
@@ -23,9 +29,9 @@ export default App;
 
 /* 
 
-About Section
+Play around with background intenisty of grid
 
-Projects
+Skills Section - Skill Tree as i add in more skills
 
 Contact
 

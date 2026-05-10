@@ -1,29 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 const commands = {
-    'help': () => "",
+    'commandslist': () => "welcome  clear  whoami  ls",
+    'welcome': () => "Welcome to the terminal! Glad you were curious to try it out! :) hope you like it",
     'clear': () => [],
     'whoami': () => "Emilis Voropajevas",
-    'ls': () => "skills.txt  education.txt  interests.txt",
+    'ls': () => "funfact.txt  dream.txt",
 }
 
 const files = {
-    'skills.txt': "Python  Javascript  SQL React",
-    'education.txt': "BSc Theoretical Physics  MSc Computer Science"
+    'dream.txt': "My dream is to become a good engineer who can build anything :D",
+    'funfact.txt': "My first feat of engineering was building a vending machine out of lego as a kid :)"
 }
 
 export function Terminal() {
-    const [outputText, setOutputText] = useState([]); /* Everything outputted to screen */
+    const [outputText, setOutputText] = useState([]);
     const [commandHistory, setCommandHistory] = useState([]);
     const [commandHistoryIndex, setCommandHistoryIndex] = useState(-1);
     const [commandInput, setCommandInput] = useState("");
 
+    const commandRef = useRef(null);
+    const inputRef = useRef(null);
+
     useEffect(() => {
         const date = new Date();
         setOutputText([{type: 'output', text: `Last login: ${date.toDateString().split(' ').slice(0,3).join(' ')} ${date.toLocaleTimeString()} on ttys000`}]);
-
     },[]);
+
+    useEffect(() => {
+        if (!commandRef.current) return;
+        commandRef.current.scrollTop = commandRef.current.scrollHeight;
+    },[outputText])
+
+    const handleClick = () => {
+        if (!inputRef.current) return;
+        inputRef.current.focus();
+    }
 
     /* helper function to handle input*/
     const processInput = (rawInput) => {
@@ -120,7 +133,7 @@ export function Terminal() {
     }
 
     return (
-        <div data-slot="card-content" className="px-3 p-4 bg-zinc-900 h-full overflow-y-auto">
+        <div ref={commandRef} data-slot="card-content" className="p-4 bg-zinc-900 h-full overflow-y-auto" onClick={handleClick}>
             <div className="mb-3 flex items-center gap-2 ">
                 <div className="h-3 w-3 rounded-full bg-red-500/70"></div>
                 <div className="h-3 w-3 rounded-full bg-yellow-500/70"></div>
@@ -131,33 +144,13 @@ export function Terminal() {
                 {outputText.map((entry, index) => (
                     <div key={index} className="font-mono text-white">{entry.type === 'input' ? `user@portfolio ~ % ${entry.text}`: entry.text}</div>
                 ))}
-                <div className="font-mono text-white">user@portfolio ~ %&nbsp;
-                    <input value={commandInput} onChange={(e) => setCommandInput(e.target.value)} onKeyDown={handleInput} className="bg-transparent text-white outline-none border-none"></input> 
+                <div className="font-mono text-white relative">
+                    user@portfolio ~ %&nbsp;
+                    <span>{commandInput}</span>
+                    <span className="inline-block w-2 h-4 bg-white   animate-blink"></span>
+                    <input ref={inputRef} value={commandInput} onChange={(e) => setCommandInput(e.target.value)} onKeyDown={handleInput} className="bg-transparent text-white absolute outline-none border-none opacity-0 w-0"></input> 
                 </div>
             </div>
         </div>
     )
 }
-
-/* 
-What is left? - This was very fun to make
-
-when going past terminal cotainer -> stay on the last text
-
-onclick of border -> refocus on terminal
-
-blinker - tiny rectangle hovers over text i.e lastindex of inputvalue
-
-help command -> introduction text -> pwd?
-
-commandlist -> could adjust more stuff
-
-terminal load animation - blink first line on, then blink second line
-
-Idea for future: Allow users to write their own files using cat? 
-
-Light mode and dark mode terminal?
-
-adjust terminal for mobile view
-
-*/
